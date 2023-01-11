@@ -317,6 +317,8 @@ while updated is False:
             print(colored(f"\rScanning page {page} of the website! Sucessfully scraped {searched_jobs} jobs!", "green"), end='', flush=True)
 
         page += 1
+        if page == 69:
+            updated = True
 
 job_title_list = job_title_list[:break_even]
 company_name_list = company_name_list[:break_even]
@@ -364,6 +366,12 @@ new_jobs_dataframe = new_jobs_dataframe.reindex(index=new_jobs_dataframe.index[:
 
 updated_dataframe = pd.concat([existing_data_dataframe, new_jobs_dataframe], ignore_index=True)
 
+# Drop any duplicates
+
+updated_dataframe.drop_duplicates(["job_title", "company_name", "company_location(city)", "company_location_state"],
+                                  keep = "first", inplace=True)
+updated_dataframe.reset_index(drop=True)
+
 print("\n\nSaving fetched data to csv file (collected data.csv)")
 try:
     updated_dataframe.to_csv("Collected data.csv")
@@ -372,4 +380,4 @@ except:
     print("Could not save data to csv file. Close any open instance of the csv and try again.")
 
 
-print("DONE!!")
+input("DONE!!")
