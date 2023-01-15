@@ -11,11 +11,11 @@ from termcolor import colored
 
 def get_jobTitle():
     try:
-        job_title = page_information.find("div", class_="viewjob-jobTitle h2").text
+        job_title_ = page_information.find("div", class_="viewjob-jobTitle h2").text
     except:
-        jobtitle = None
+        job_title_ = None
 
-    return job_title
+    return job_title_
 
 
 # The get_companyName() function fetches the hiring company's name and Company's Rating from the page
@@ -319,6 +319,7 @@ while updated is False:
         page += 1
         if page == 69:
             updated = True
+            break_even = searched_jobs - 1
 
 job_title_list = job_title_list[:break_even]
 company_name_list = company_name_list[:break_even]
